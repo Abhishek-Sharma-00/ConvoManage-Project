@@ -10,12 +10,14 @@ This repository contains the backend server powered by **Node.js**, **Express**,
 ```
 server/
     |---controllers/ # Route logic
-    |    |----authController.js    
+    |    |----authController.js 
+    |---middlewares/ # JWT auth & role-based access control
+    |    |----authMiddleware.js   
     |---models/ # Mongoose models
     |    |----User.js
     |---routes/ # API route definitions
     |    |----auth.js
-    |---middlewares/ # JWT auth & role-based access control
-    |    |----authMiddleware.js
+    |    |----protected.js
+
 
 ```
