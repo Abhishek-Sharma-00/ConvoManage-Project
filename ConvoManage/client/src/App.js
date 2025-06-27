@@ -1,0 +1,82 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
+import Home from "./pages/Home";
+import SpeakerDashboard from "./pages/SpeakerDashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
+import OrganizerDashboard from "./pages/OrganizerDashboard";
+import AttendeeDashboard from "./pages/AttendeeDashboard";
+import MySessions from "./pages/MySessions";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminAnalytics from "./pages/AdminAnalytics";
+import AdminLogs from "./pages/AdminLogs";
+import SearchSessions from "./pages/SearchSessions";
+
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route
+            path="/speaker"
+            element={
+              <ProtectedRoute allowedRoles={["speaker"]}>
+                <SpeakerDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/organizer"
+            element={
+              <ProtectedRoute allowedRoles={["organizer"]}>
+                <OrganizerDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/attendee"
+            element={
+              <ProtectedRoute allowedRoles={["attendee"]}>
+                <AttendeeDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/my-sessions"
+            element={
+              <ProtectedRoute allowedRoles={["attendee"]}>
+                <MySessions />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin-analytics"
+            element={
+              <ProtectedRoute allowedRoles={["admin"]}>
+                <AdminAnalytics />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/admin/logs" element={<AdminLogs />} />
+          <Route path="/search-sessions" element={<SearchSessions />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
+}
+
+export default App;
