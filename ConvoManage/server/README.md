@@ -15,5 +15,7 @@ server/
     |    |----User.js
     |---routes/ # API route definitions
     |    |----auth.js
+    |---middlewares/ # JWT auth & role-based access control
+    |    |----authMiddleware.js
 
 ```
