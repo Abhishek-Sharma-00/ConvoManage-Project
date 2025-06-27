@@ -9,7 +9,7 @@ This repository contains the backend server powered by **Node.js**, **Express**,
 ## 📁 Project Structure
 
 server/
-    |---controllers/ # Route logic
+    |---controllers/ # Route logic <br />
     |    |----authController.js    
     |---models/ # Mongoose models
     |    |----User.js
