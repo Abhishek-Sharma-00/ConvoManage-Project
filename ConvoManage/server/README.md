@@ -7,11 +7,13 @@ This repository contains the backend server powered by **Node.js**, **Express**,
 ---
 
 ## 📁 Project Structure
-
+```
 server/
-    |---controllers/ # Route logic <br />
+    |---controllers/ # Route logic
     |    |----authController.js    
     |---models/ # Mongoose models
     |    |----User.js
     |---routes/ # API route definitions
     |    |----auth.js
+
+```
