@@ -9,7 +9,6 @@ This repository contains the backend server powered by **Node.js**, **Express**,
 ## 📁 Project Structure for backend
 ```
 
-```
 ConvoManage/
     └── server/
             ├── controllers/ # Route logic
@@ -34,4 +33,5 @@ ConvoManage/
             ├── index.js
             ├── package-lock.json
             └── package.json
+            
 ```
