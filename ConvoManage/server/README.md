@@ -11,12 +11,15 @@ This repository contains the backend server powered by **Node.js**, **Express**,
 server/
     |---controllers/ # Route logic
     |    |----authController.js 
+    |    |----conferenceController.js
     |---middlewares/ # JWT auth & role-based access control
     |    |----authMiddleware.js   
     |---models/ # Mongoose models
+    |    |----Conference.js
     |    |----User.js
     |---routes/ # API route definitions
     |    |----auth.js
+    |    |----conference.js
     |    |----protected.js
 
 
