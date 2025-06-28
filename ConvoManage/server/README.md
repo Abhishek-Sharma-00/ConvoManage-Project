@@ -6,7 +6,7 @@ This repository contains the backend server powered by **Node.js**, **Express**,
 
 ---
 
-## 📁 Project Structure
+## 📁 Project Structure for backend
 ```
 server/
     |---controllers/ # Route logic
@@ -14,7 +14,8 @@ server/
     |    |----conferenceController.js
     |    |----sessionController.js
     |---middlewares/ # JWT auth & role-based access control
-    |    |----authMiddleware.js   
+    |    |----authMiddleware.js
+    |    |----roleMiddleware.js 
     |---models/ # Mongoose models
     |    |----Conference.js
     |    |----Session.js
