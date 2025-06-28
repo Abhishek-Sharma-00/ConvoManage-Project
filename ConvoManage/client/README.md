@@ -1,90 +1,62 @@
-# Getting Started with Create React App
+# 🎨 ConvoManage - Frontend Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ConvoManage is a full-featured platform to manage online conferences, built using **React.js**. It includes role-based dashboards, registration & login, session management, reminder notifications, analytics, and much more.
 
-## Available Scripts
+This `client/` folder is the React frontend that interacts with the Node.js backend via RESTful APIs.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 🚀 Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Role-based login: **Attendee**, **Speaker**, **Organizer**, **Admin**  
+2. User registration with dynamic role selection  
+3. Organizer dashboard: create conferences, sessions, assign speakers  
+4. Speaker dashboard: view assigned sessions  
+5. Attendee dashboard: browse & join sessions  
+6. Email reminders for upcoming sessions  
+7. Admin dashboard: manage users, roles, and view analytics  
+8. Admin analytics with bar and pie charts  
+9. Activity log viewer for audit tracking  
+<!-- Fully responsive UI with modern design -->
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## 📦 Tech Stack
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React** (frontend)
+- **Axios** (API calls)
+- **React Router** (navigation)
+- **Context API** (authentication)
+- **Chart.js / Recharts** (analytics visualizations)
+- **CSS / Tailwind** (styling)
+- **FullCalendar** or **React Calendar** (optional: session view)
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
+## 📁 Project Structure for frontend
 
 ```
-## Folder Structure in src/
-
-src/
-├── components/
-│   └── ProtectedRoute.jsx
-├── context/
-│   └── AuthContext.jsx
-├── pages/
-│   ├── Login.jsx
-│   ├── Register.jsx
-│   └── SpeakerDashboard.jsx
-├── App.js
-├── index.js
-
-
+ConvoManage/
+    └── client/
+            ├── public/
+            |    ├── index.html
+            │    └── manifest.json
+            ├── src/
+            │    ├── components/ # Navbar, charts, etc.
+            |    |     ├── ProtectedRoute.jsx
+            │    ├── context/ # Auth context
+            |    |     ├── AuthContext.jsx
+            │    ├── pages/ # All route pages (login, dashboards, etc.)
+            |    |     ├── Login.jsx
+            |    |     ├── OrganizerDashboard.jsx
+            |    |     ├── Register.jsx
+            |    |     ├── SpeakerDashboard.jsx
+            │    ├── App.js
+            │    ├── index.css
+            │    ├── index.js
+            │    └── styles.css
+            ├── .gitignore
+            ├── package-lock.json
+            └── package.json
 
 ```
