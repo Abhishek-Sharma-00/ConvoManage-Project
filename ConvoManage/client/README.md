@@ -49,7 +49,9 @@ ConvoManage/
             |    |     ├── AuthContext.jsx
             │    ├── pages/ # All route pages (login, dashboards, etc.)
             |    |     ├── AttendeeDashboard.jsx
+            |    |     ├── AdminDashboard.jsx
             |    |     ├── Login.jsx
+            |    |     ├── MySession.jsx
             |    |     ├── OrganizerDashboard.jsx
             |    |     ├── Register.jsx
             |    |     ├── SpeakerDashboard.jsx

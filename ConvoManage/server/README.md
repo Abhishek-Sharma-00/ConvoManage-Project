@@ -23,6 +23,7 @@ ConvoManage/
             |     ├── Session.js
             |     └── User.js
             ├── routes/ # API route definitions
+            |     ├── admin.js
             |     ├── auth.js
             |     ├── conference.js
             |     ├── protected.js
