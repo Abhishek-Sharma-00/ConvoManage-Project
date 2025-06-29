@@ -48,6 +48,7 @@ ConvoManage/
             │    ├── context/ # Auth context
             |    |     ├── AuthContext.jsx
             │    ├── pages/ # All route pages (login, dashboards, etc.)
+            |    |     ├── AdminAnalytics.jsx
             |    |     ├── AttendeeDashboard.jsx
             |    |     ├── AdminDashboard.jsx
             |    |     ├── Login.jsx
