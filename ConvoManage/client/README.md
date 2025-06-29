@@ -43,10 +43,12 @@ ConvoManage/
             │    └── manifest.json
             ├── src/
             │    ├── components/ # Navbar, charts, etc.
-            |    |     ├── ProtectedRoute.jsx
+            |    |     ├── Navbar.jsx
+            |    |     └── ProtectedRoute.jsx
             │    ├── context/ # Auth context
             |    |     ├── AuthContext.jsx
             │    ├── pages/ # All route pages (login, dashboards, etc.)
+            |    |     ├── AttendeeDashboard.jsx
             |    |     ├── Login.jsx
             |    |     ├── OrganizerDashboard.jsx
             |    |     ├── Register.jsx
