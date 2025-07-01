@@ -28,7 +28,12 @@ ConvoManage/
             |     ├── auth.js
             |     ├── conference.js
             |     ├── protected.js
-            |     └── session.js
+            |     ├── session.js
+            |     └── test.js
+            ├── utils/
+            |     ├── logActivity.js
+            |     ├── reminderScheduler.js
+            |     └── sendEmail.js
             ├── .env
             ├── .env.example
             ├── .gitignore
