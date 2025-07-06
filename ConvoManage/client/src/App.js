@@ -13,6 +13,10 @@ import AdminDashboard from "./pages/AdminDashboard";
 import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminLogs from "./pages/AdminLogs";
 import SearchSessions from "./pages/SearchSessions";
+import ProfilePage from "./pages/ProfilePage";
+import ChangePassword from "./pages/ChangePassword";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function App() {
   return (
@@ -73,6 +77,14 @@ function App() {
           />
           <Route path="/admin/logs" element={<AdminLogs />} />
           <Route path="/search-sessions" element={<SearchSessions />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+
+          {/* Add the Forgot Password route */}
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          
+          {/* Reset Password route */}
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </Router>
     </AuthProvider>

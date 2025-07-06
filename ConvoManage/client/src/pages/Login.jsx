@@ -48,6 +48,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+
         <div className="password-wrapper">
           <input
             type={showPassword ? "text" : "password"}
@@ -66,6 +67,14 @@ const Login = () => {
         </div>
 
         <button type="submit">Login</button>
+        <p style={{ marginTop: "10px" }}>
+          <a
+            href="/forgot-password"
+            style={{ color: "blue", textDecoration: "none" }}
+          >
+            Forgotten your password?
+          </a>
+        </p>
         <p>
           Don't have an account? <a href="/register">Register</a>
         </p>

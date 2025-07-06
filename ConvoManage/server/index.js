@@ -46,6 +46,11 @@ app.use('/api/admin', analyticsRoutes);
 const testRoutes = require('./routes/test');
 app.use('/api/test', testRoutes);
 
+// Profile routes
+const profileRoutes = require('./routes/profile');
+app.use('/api/profile', profileRoutes);
+
+
 
 // Start server
 const PORT = process.env.PORT || 5000;

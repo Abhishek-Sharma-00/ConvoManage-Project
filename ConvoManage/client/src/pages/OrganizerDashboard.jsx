@@ -28,7 +28,6 @@ const OrganizerDashboard = () => {
         return organizerId === user.id;
       });
 
-
       setConferences(myConfs);
     } catch (err) {
       console.error(err);
@@ -251,7 +250,6 @@ const OrganizerDashboard = () => {
           </li>
         ))}
       </ul>
-
     </div>
   );
 };

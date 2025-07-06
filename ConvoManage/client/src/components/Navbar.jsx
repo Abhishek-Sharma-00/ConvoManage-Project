@@ -10,15 +10,20 @@ import {
   FaUserCircle,
   FaChartBar,
   FaSearch,
+  // FaPlus,
+  FaEdit,
+  FaRedo,
 } from "react-icons/fa";
 import { FiLogOut, FiLogIn } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa6"; // For Admin icon
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
+// import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   const handleLogout = () => {
     logout();
@@ -29,6 +34,19 @@ const Navbar = () => {
     setShowDropdown(!showDropdown);
   };
 
+  useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      setShowDropdown(false);
+    }
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
   return (
     <nav className="navbar">
       <div className="navbar-left" onClick={() => navigate("/")}>
@@ -37,17 +55,20 @@ const Navbar = () => {
       </div>
       <div className="navbar-right">
         {user ? (
-          <div className="profile-wrapper">
+          <div className="profile-wrapper" ref={dropdownRef}>
             <button className="profile-button" onClick={toggleDropdown}>
               <FaUserCircle size={20} /> {user.name}
             </button>
             {showDropdown && (
               <div className="profile-dropdown">
-                <div className="profile-info">
-                  <strong>{user.name}</strong>
-                  <small>Role: {user.role}</small>
+                {/* <div className="profile-info">  
+                  {user && (
+                  <button onClick={() => navigate("/organizer")}>
+                    <FaUserTie /> {user.role}
+                  </button>
+                )}
                 </div>
-                <hr />
+                <hr /> */}
 
                 {user.role === "organizer" && (
                   <button onClick={() => navigate("/organizer")}>
@@ -84,11 +105,23 @@ const Navbar = () => {
                     <FaClipboardList /> Activity Logs
                   </button>
                 )}
-                {user.role === "admin" && (
+                {user && (
                   <button onClick={() => navigate("/search-sessions")}>
                     <FaSearch/> Search Sessions
                   </button>
                 )}
+                {user && (
+                  <button onClick={() => navigate("/profile")}>
+                    <FaEdit/> Edit Profile
+                  </button>
+                )}
+                {user && (
+                  <button onClick={() => navigate("/change-password")}>
+                    <FaRedo/> Change Password
+                  </button>
+                )}
+                {/* {user && <Link to="/profile">Profile</Link>} */}
+
                 
 
                 <hr />
