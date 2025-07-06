@@ -59,7 +59,7 @@ const Login = () => {
           />
           <button
             type="button"
-            className="toggle-password"
+            className="toggle-btn"
             onClick={togglePassword}
           >
             {showPassword ? <FiEyeOff /> : <FiEye />}
@@ -76,7 +76,7 @@ const Login = () => {
           </a>
         </p>
         <p>
-          Don't have an account? <a href="/register">Register</a>
+          Don't have an account? <a href="/register" style={{ textDecoration: "none", color: "#0000FF" }}>Register</a>
         </p>
       </form>
     </div>

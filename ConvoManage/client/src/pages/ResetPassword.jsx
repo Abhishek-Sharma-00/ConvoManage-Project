@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import "./ResetPassword.css";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -52,51 +54,55 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="reset-password-container">
-      <h2>Reset Password</h2>
+    <div className="reset-container">
+      <h2 className="reset-title">Reset Password</h2>
 
       {userInfo && (
-        <div className="user-details">
+        <div className="reset-user-info">
           <p>
             <strong>Name:</strong> {userInfo.name}
           </p>
           <p>
-            <strong>Email:</strong> {userInfo.email}
-          </p>
-          <p>
             <strong>Role:</strong> {userInfo.role}
           </p>
+          <p>
+            <strong>Email:</strong> {userInfo.email}
+          </p>
+          
         </div>
       )}
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="New Password"
-          value={newPassword}
-          onChange={(e) => setNewPassword(e.target.value)}
-          required
-        />
-        <button type="button" onClick={() => setShowPassword(!showPassword)}>
-          {showPassword ? "Hide" : "Show"}
-        </button>
+      <form onSubmit={handleSubmit} className="reset-form">
+        <div className="reset-field">
+          <input
+            type={showPassword ? "text" : "password"}
+            placeholder="New Password"
+            value={newPassword}
+            onChange={(e) => setNewPassword(e.target.value)}
+            required
+          />
+          <button type="button" className="toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FiEyeOff /> : <FiEye />}
+          </button>
+        </div>
 
-        <input
-          type={showConfirm ? "text" : "password"}
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <button type="button" onClick={() => setShowConfirm(!showConfirm)}>
-          {showConfirm ? "Hide" : "Show"}
-        </button>
+        <div className="reset-field">
+          <input
+            type={showConfirm ? "text" : "password"}
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            required
+          />
+          <button type="button" className="toggle-btn" onClick={() => setShowConfirm(!showConfirm)}>
+            {showConfirm ? <FiEyeOff /> : <FiEye />}
+          </button>
+        </div>
 
-        <button type="submit">Reset Password</button>
+        <button className="submit-btn" type="submit">Reset Password</button>
       </form>
     </div>
   );
 };
 
 export default ResetPassword;
-
