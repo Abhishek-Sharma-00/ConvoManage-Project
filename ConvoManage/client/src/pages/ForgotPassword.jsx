@@ -16,6 +16,7 @@ const ForgotPassword = () => {
   };
 
   return (
+    <div className="container">
     <form onSubmit={handleSubmit}>
       <h2>Forgot Password</h2>
       <input
@@ -27,6 +28,7 @@ const ForgotPassword = () => {
       />
       <button type="submit">Send Reset Link</button>
     </form>
+    </div>
   );
 };
 

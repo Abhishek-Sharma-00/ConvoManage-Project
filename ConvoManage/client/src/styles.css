@@ -210,7 +210,7 @@ li {
 
 button {
   padding: 8px 12px;
-  /* margin: 0 0.75rem; */
+  margin: 0 0.75rem;
   border: none;
   border-radius: 4px;
   background-color: #007bff;
@@ -220,7 +220,7 @@ button {
 
 .password-wrapper .toggle-btn {
   position: absolute;
-  right: 8px;
+  right: -5px;
   top: 2px;
   background: none;
   border: none;

@@ -62,7 +62,7 @@ const Register = () => {
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="toggle-password"
+            className="toggle-btn"
             aria-label="Toggle password visibility"
           >
             {showPassword ? <FiEyeOff /> : <FiEye />}
