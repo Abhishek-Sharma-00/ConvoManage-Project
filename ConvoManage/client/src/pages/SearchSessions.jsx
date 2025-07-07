@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import Loader from "../components/Loader";
 
 const SearchSessions = () => {
   const [filters, setFilters] = useState({
@@ -11,6 +12,7 @@ const SearchSessions = () => {
   });
 
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
@@ -29,8 +31,12 @@ const SearchSessions = () => {
       setResults(res.data);
     } catch (err) {
       console.error("Search failed:", err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="container">

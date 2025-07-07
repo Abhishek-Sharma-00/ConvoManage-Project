@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import Loader from "../components/Loader";
 
 const ProfilePage = () => {
   const { user, setUser } = useContext(AuthContext);
   const [form, setForm] = useState({ name: "", email: "" });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -34,8 +36,12 @@ const ProfilePage = () => {
     } catch (err){
       console.error(err);
       alert("Failed to update profile");
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="container">

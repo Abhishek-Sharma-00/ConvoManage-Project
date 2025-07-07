@@ -1,10 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import Loader from "../components/Loader";
 
 const MySessions = () => {
   const { user } = useContext(AuthContext);
   const [sessions, setSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchMySessions = async () => {
@@ -17,10 +19,14 @@ const MySessions = () => {
         setSessions(res.data);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchMySessions();
   }, [user.token]);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="container">

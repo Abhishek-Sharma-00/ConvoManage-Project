@@ -1,8 +1,9 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Loader from "../components/Loader";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,7 +11,7 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-
+  const [loading, setLoading] = useState(true);
   const togglePassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (e) => {
@@ -34,8 +35,12 @@ const Login = () => {
       }
     } catch (err) {
       alert("Login failed");
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="container">

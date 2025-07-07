@@ -1,10 +1,12 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import Loader from "../components/Loader";
 
 const SpeakerDashboard = () => {
   const { user } = useContext(AuthContext);
   const [sessions, setSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchSessions = async () => {
@@ -20,10 +22,14 @@ const SpeakerDashboard = () => {
         setSessions(res.data);
       } catch (err) {
         console.error(err);
+      } finally {
+        setLoading(false);
       }
     };
     fetchSessions();
   }, [user]);
+
+  if (loading) return <Loader />;
 
   return (
     <div>

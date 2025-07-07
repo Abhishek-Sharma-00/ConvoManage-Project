@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useCallback } from "react";
+import Loader from "../components/Loader";
 
 const OrganizerDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -15,6 +16,7 @@ const OrganizerDashboard = () => {
   const [sessionForm, setSessionForm] = useState({});
   const [conferenceSessions, setConferenceSessions] = useState({});
   const [reminderUpdates, setReminderUpdates] = useState({});
+  const [loading, setLoading] = useState(true);
 
   const fetchConferences = useCallback(async () => {
     try {
@@ -111,6 +113,7 @@ const OrganizerDashboard = () => {
     };
     fetchConferences();
     fetchSpeakers();
+    setLoading(false);
   }, [fetchConferences]);
 
   const handleReminderChange = (sessionId, value) => {
@@ -131,6 +134,8 @@ const OrganizerDashboard = () => {
       alert("Failed to update reminder time");
     }
   };
+
+   if (loading) return <Loader />;
 
   return (
     <div className="container">

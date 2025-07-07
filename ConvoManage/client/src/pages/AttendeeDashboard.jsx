@@ -1,10 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import Loader from "../components/Loader";
 
 const AttendeeDashboard = () => {
   const [data, setData] = useState([]); // [{ conf, sessions: [] }]
   const [registered, setRegistered] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { user } = useContext(AuthContext);
 
   const fetchAll = async () => {
@@ -25,6 +27,8 @@ const AttendeeDashboard = () => {
       setData(fullData);
     } catch (err) {
       console.error("Failed to load conferences/sessions", err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,6 +76,8 @@ const AttendeeDashboard = () => {
     }
   };
 
+  if (loading) return <Loader />;
+
   return (
     <div className="attendee-container">
       <h2>Welcome, Attendee!</h2>
@@ -97,7 +103,7 @@ const AttendeeDashboard = () => {
                     {new Date(s.endTime).toLocaleTimeString()}
                     <br />
                     {registered.includes(s._id) ? (
-                      <span className="session-registered">✅ Registered</span>
+                      <span className="session-registered">Registered</span>
                     ) : (
                       <button onClick={() => handleRegister(s._id)}>
                         Register

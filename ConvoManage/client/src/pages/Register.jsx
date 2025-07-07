@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Loader from "../components/Loader";
 
 
 const Register = () => {
@@ -13,6 +14,7 @@ const Register = () => {
     password: "",
     role: "speaker",
   });
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -26,8 +28,12 @@ const Register = () => {
       navigate("/");
     } catch (err) {
       alert("Registration failed. " + err.response?.data?.error || err.message);
+    } finally {
+      setLoading(false);
     }
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="container">

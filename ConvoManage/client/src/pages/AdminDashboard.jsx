@@ -2,10 +2,12 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useCallback } from "react";
+import Loader from "../components/Loader";
 
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext);
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const fetchUsers = useCallback(async () => {
     try {
@@ -59,12 +61,16 @@ const AdminDashboard = () => {
         console.error("Message:", err.response.data);
       }
       alert("Failed to delete user");
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="container">

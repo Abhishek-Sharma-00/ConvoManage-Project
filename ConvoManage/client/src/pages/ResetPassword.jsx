@@ -3,6 +3,7 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import "./ResetPassword.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import Loader from "../components/Loader";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -12,6 +13,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // 1. Fetch user info using token
   useEffect(() => {
@@ -24,6 +26,8 @@ const ResetPassword = () => {
       } catch (err) {
         alert("Link expired or invalid");
         navigate("/login");
+      } finally { 
+        setLoading(false);
       }
     };
     fetchUser();
@@ -52,6 +56,8 @@ const ResetPassword = () => {
       alert("Reset failed. Please try again.");
     }
   };
+
+  if (loading) return <Loader />;
 
   return (
     <div className="reset-container">
