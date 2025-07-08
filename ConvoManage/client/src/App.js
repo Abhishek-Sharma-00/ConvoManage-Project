@@ -17,6 +17,8 @@ import ProfilePage from "./pages/ProfilePage";
 import ChangePassword from "./pages/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -86,6 +88,7 @@ function App() {
           {/* Reset Password route */}
           <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
+        <ToastContainer position="top-right" autoClose={3000} />
       </Router>
     </AuthProvider>
   );

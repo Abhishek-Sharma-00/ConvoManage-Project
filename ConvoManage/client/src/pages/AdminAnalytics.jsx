@@ -12,6 +12,7 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import { toast } from "react-toastify";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -53,7 +54,7 @@ const AdminAnalytics = () => {
           }))
         );
       } catch (err) {
-        alert("Failed to load analytics");
+        toast.error("Failed to load analytics");
         console.error(err);
       }
     };
@@ -72,7 +73,7 @@ const AdminAnalytics = () => {
         );
         setUserRoleData(res.data);
       } catch (err) {
-        console.error("Failed to fetch user role analytics", err);
+        toast.error("Failed to fetch user role analytics", err);
       }
     };
 
@@ -90,7 +91,7 @@ const AdminAnalytics = () => {
         );
         setTopSpeakers(res.data);
       } catch (err) {
-        console.error("Error fetching top speakers", err);
+        toast.error("Error fetching top speakers", err);
       }
     };
 

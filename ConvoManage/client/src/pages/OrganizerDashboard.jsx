@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useCallback } from "react";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const OrganizerDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -65,7 +66,7 @@ const OrganizerDashboard = () => {
       setForm({ title: "", description: "", date: "" });
       fetchConferences(); // Refresh list
     } catch (err) {
-      alert("Failed to create conference");
+      toast.error("Failed to create conference");
     }
   };
 
@@ -92,11 +93,11 @@ const OrganizerDashboard = () => {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      alert("Session created!");
+      toast.success("Session created!");
       await fetchSessionsForConference(confId);
       fetchConferences(); // refresh sessions under conferences
     } catch (err) {
-      alert("Failed to create session");
+      toast.error("Failed to create session");
       console.error(err);
     }
   };
@@ -128,10 +129,10 @@ const OrganizerDashboard = () => {
         { reminderMinutesBefore: minutes },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
-      alert("Reminder time updated");
+      toast.success("Reminder time updated");
       fetchConferences(); // refresh session list
     } catch (err) {
-      alert("Failed to update reminder time");
+      toast.error("Failed to update reminder time");
     }
   };
 

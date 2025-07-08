@@ -1,9 +1,10 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,11 +12,12 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const togglePassword = () => setShowPassword(!showPassword);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post("http://localhost:5000/api/auth/login", {
         email,
@@ -24,6 +26,9 @@ const Login = () => {
       const { token, user } = res.data;
       user.token = token; //
       login(user);
+
+      toast.success("Login successful!");
+
       if (res.data.user.role === "speaker") {
         navigate("/speaker");
       } else if (res.data.user.role === "organizer") {
@@ -34,7 +39,7 @@ const Login = () => {
         navigate("/admin");
       }
     } catch (err) {
-      alert("Login failed");
+      toast.error("Login failed");
     } finally {
       setLoading(false);
     }

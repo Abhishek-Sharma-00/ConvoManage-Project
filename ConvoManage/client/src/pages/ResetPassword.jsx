@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./ResetPassword.css";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
   const { token } = useParams();
@@ -24,7 +25,7 @@ const ResetPassword = () => {
         );
         setUserInfo(res.data);
       } catch (err) {
-        alert("Link expired or invalid");
+        toast.error("Link expired or invalid");
         navigate("/login");
       } finally { 
         setLoading(false);
@@ -38,7 +39,7 @@ const ResetPassword = () => {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      return alert("Passwords do not match");
+      return toast.error("Passwords do not match");
     }
 
     try {
@@ -49,11 +50,11 @@ const ResetPassword = () => {
         }
       );
 
-      alert("Password reset successfully!");
+      toast.success("Password reset successfully!");
       navigate("/login");
     } catch (err) {
       console.error(err);
-      alert("Reset failed. Please try again.");
+      toast.error("Reset failed. Please try again.");
     }
   };
 

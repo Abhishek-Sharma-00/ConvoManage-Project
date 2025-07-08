@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -13,9 +14,9 @@ const ForgotPassword = () => {
       await axios.post("http://localhost:5000/api/auth/forgot-password", {
         email,
       });
-      alert("Password reset link sent to your email.");
+      toast.success("Password reset link sent to your email.");
     } catch (err) {
-      alert("Failed to send reset link.");
+      toast.error("Failed to send reset link.");
     } finally {
       setLoading(false);
     }

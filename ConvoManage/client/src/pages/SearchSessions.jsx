@@ -39,9 +39,9 @@ const SearchSessions = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="container">
+    <div className="container-two">
       <h2>Search Sessions</h2>
-      <div>
+      <div className="inputs">
         <input
           type="text"
           name="title"

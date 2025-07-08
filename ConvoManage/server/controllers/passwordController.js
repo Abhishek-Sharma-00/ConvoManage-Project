@@ -9,12 +9,7 @@ exports.changePassword = async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
     if (!user) return res.status(404).json({ message: "User not found" });
-
     user.password = newPassword;
-   
-    if (confirmPassword !== newPassword) {
-      return res.status(400).json({ message: "Passwords do not match" });
-    }
     await user.save();
 
     res.json({ message: "Password reset successful" });

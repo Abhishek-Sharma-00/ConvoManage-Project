@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const ProfilePage = () => {
   const { user, setUser } = useContext(AuthContext);
@@ -10,10 +11,17 @@ const ProfilePage = () => {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      const res = await axios.get("http://localhost:5000/api/profile", {
-        headers: { Authorization: `Bearer ${user.token}` },
-      });
-      setForm({ name: res.data.name, email: res.data.email });
+      try {
+        const res = await axios.get("http://localhost:5000/api/profile", {
+          headers: { Authorization: `Bearer ${user.token}` },
+        });
+        setForm({ name: res.data.name, email: res.data.email });
+      } catch (err) {
+        console.error(err);
+        toast.error("Failed to load profile");
+      } finally {
+        setLoading(false);
+      }
     };
     fetchProfile();
   }, [user.token]);
@@ -32,10 +40,10 @@ const ProfilePage = () => {
       setUser(updatedUser);
       localStorage.setItem("user", JSON.stringify(updatedUser));
 
-      alert("Profile updated!");
-    } catch (err){
+      toast.success("Profile updated!");
+    } catch (err) {
       console.error(err);
-      alert("Failed to update profile");
+      toast.error("Failed to update profile");
     } finally {
       setLoading(false);
     }
@@ -47,8 +55,20 @@ const ProfilePage = () => {
     <div className="container">
       <h2>My Profile</h2>
       <form onSubmit={handleSubmit}>
-        <input name="name" value={form.name} onChange={handleChange} placeholder="Name" required />
-        <input name="email" value={form.email} onChange={handleChange} placeholder="Email" required />
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Name"
+          required
+        />
+        <input
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email"
+          required
+        />
         <button type="submit">Update Profile</button>
       </form>
     </div>

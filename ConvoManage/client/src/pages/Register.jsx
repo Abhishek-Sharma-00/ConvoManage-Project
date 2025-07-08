@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 
 const Register = () => {
@@ -24,10 +25,10 @@ const Register = () => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:5000/api/auth/register", form);
-      alert("Registration successful! Please login.");
+      toast.success("Registration successful! Please login.");
       navigate("/");
     } catch (err) {
-      alert("Registration failed. " + err.response?.data?.error || err.message);
+      toast.error("Registration failed. " + err.response?.data?.error || err.message);
     } finally {
       setLoading(false);
     }

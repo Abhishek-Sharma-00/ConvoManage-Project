@@ -3,14 +3,15 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const ResetPassword = () => {
   const { user } = useContext(AuthContext);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const togglePassword = () => setShowPassword(!showPassword);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  // const togglePassword = () => setShowPassword(!showPassword);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -21,7 +22,6 @@ const ResetPassword = () => {
         {
           currentPassword,
           newPassword,
-          confirmPassword,
         },
         {
           headers: {
@@ -29,12 +29,11 @@ const ResetPassword = () => {
           },
         }
       );
-      alert("Password updated successfully");
+      toast.success("Password updated successfully");
       setCurrentPassword("");
       setNewPassword("");
-      setConfirmPassword("");
     } catch (err) {
-      alert(err.response?.data?.message || "Failed to update password");
+      toast.error(err.response?.data?.message || "Failed to update password");
     } finally {
       setLoading(false);
     }
@@ -46,6 +45,7 @@ const ResetPassword = () => {
     <div className="container">
       <h2>Reset Password</h2>
       <form onSubmit={handleSubmit}>
+        <div className="reset-field">
         <input
           type={showPassword ? "text" : "password"}
           placeholder="Current Password"
@@ -53,27 +53,22 @@ const ResetPassword = () => {
           onChange={(e) => setCurrentPassword(e.target.value)}
           required
         />
+        <button type="button" className="toggle-btn" onClick={() => setShowPassword(!showPassword)}>
+            {showPassword ? <FiEyeOff /> : <FiEye />}
+          </button>
+        </div>
+        <div className="reset-field">
         <input
-          type={showPassword ? "text" : "password"}
+          type={showNewPassword ? "text" : "password"}
           placeholder="New Password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
         />
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Confirm Password"
-          value={confirmPassword}
-          onChange={(e) => setConfirmPassword(e.target.value)}
-          required
-        />
-        <button
-          type="button"
-          className="toggle-password"
-          onClick={togglePassword}
-        >
-          {showPassword ? <FiEyeOff /> : <FiEye />}
-        </button>
+        <button type="button" className="toggle-btn" onClick={() => setShowNewPassword(!showNewPassword)}>
+            {showNewPassword ? <FiEyeOff /> : <FiEye />}
+          </button>
+        </div>
         <p style={{ marginTop: "10px" }}>
           <a
             href="/forgot-password"

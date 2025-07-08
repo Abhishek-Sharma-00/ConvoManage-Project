@@ -3,6 +3,7 @@ import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useCallback } from "react";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const AdminDashboard = () => {
   const { user } = useContext(AuthContext);
@@ -16,7 +17,9 @@ const AdminDashboard = () => {
       });
       setUsers(res.data);
     } catch (err) {
-      alert("Failed to fetch users");
+      toast.error("Failed to fetch users");
+    } finally {
+      setLoading(false);
     }
   }, [user.token]);
 
@@ -30,15 +33,15 @@ const AdminDashboard = () => {
       );
 
       if (res.status === 200) {
-      alert("Role updated");
+      toast.success("Role updated");
       } else {
-        alert("Unexpected response. Please try again.");
+        toast.error("Failed to update role");
       }
       // Refresh the user list after role change
       fetchUsers();
     } catch (err) {
       console.error("Updated role error:", err);
-      alert("Failed to update role");
+      toast.error("Failed to update role");
     }
   };
 
@@ -52,6 +55,7 @@ const AdminDashboard = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      toast.success("User deleted successfully");
 
       fetchUsers();
     } catch (err) {
@@ -60,7 +64,7 @@ const AdminDashboard = () => {
         console.error("Status:", err.response.status);
         console.error("Message:", err.response.data);
       }
-      alert("Failed to delete user");
+      toast.error("Failed to delete user");
     } finally {
       setLoading(false);
     }
@@ -73,7 +77,7 @@ const AdminDashboard = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="container">
+    <div className="container-two">
       <h2>Admin Panel</h2>
       <table>
         <thead>

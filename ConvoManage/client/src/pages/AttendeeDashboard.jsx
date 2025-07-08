@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const AttendeeDashboard = () => {
   const [data, setData] = useState([]); // [{ conf, sessions: [] }]
@@ -26,7 +27,8 @@ const AttendeeDashboard = () => {
       );
       setData(fullData);
     } catch (err) {
-      console.error("Failed to load conferences/sessions", err);
+      toast.error("Failed to load conferences/sessions");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -49,10 +51,10 @@ const AttendeeDashboard = () => {
           },
         }
       );
-      alert(res.data.message);
+      toast.success(res.data.message);
       setRegistered((prev) => [...prev, sessionId]);
     } catch (err) {
-      alert(err?.response?.data?.message || "Registration failed");
+      toast.error(err?.response?.data?.message || "Registration failed");
     }
   };
 
@@ -67,11 +69,11 @@ const AttendeeDashboard = () => {
           },
         }
       );
-      alert("Joined session successfully");
+      toast.success("Joined session successfully");
       setRegistered((prev) => [...prev, sessionId]);
       // fetchSessions(); // re-fetch sessions if needed
     } catch (err) {
-      alert("Already joined or failed to join");
+      toast.error("Already joined or failed to join");
       console.error(err);
     }
   };

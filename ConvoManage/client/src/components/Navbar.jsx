@@ -61,14 +61,6 @@ const Navbar = () => {
             </button>
             {showDropdown && (
               <div className="profile-dropdown">
-                {/* <div className="profile-info">  
-                  {user && (
-                  <button onClick={() => navigate("/organizer")}>
-                    <FaUserTie /> {user.role}
-                  </button>
-                )}
-                </div>
-                <hr /> */}
 
                 {user.role === "organizer" && (
                   <button onClick={() => navigate("/organizer")}>

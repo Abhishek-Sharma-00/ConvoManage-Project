@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
+import { toast } from "react-toastify";
 
 const AdminLogs = () => {
   const { user } = useContext(AuthContext);
@@ -16,7 +17,7 @@ const AdminLogs = () => {
         });
         setLogs(res.data);
       } catch (err) {
-        alert("Failed to fetch logs");
+        toast.error("Failed to fetch logs");
       }
     };
 
@@ -24,7 +25,7 @@ const AdminLogs = () => {
   }, [user.token]);
 
   return (
-    <div className="container">
+    <div className="container-two">
       <h2>Activity Logs</h2>
       <table className="logs-table">
         <thead>

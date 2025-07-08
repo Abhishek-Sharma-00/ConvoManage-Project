@@ -4,18 +4,26 @@ const { register, login } = require("../controllers/authController");
 const User = require("../models/User");
 const logActivity = require("../utils/logActivity");
 const {
+  registerValidation,
+  loginValidation,
+} = require("../middlewares/validators");
+const { validationResult } = require("express-validator");
+const {
   changePassword,
-   resetPassword,
+  resetPassword,
   getUserByResetToken,
   forgotPassword,
 } = require("../controllers/passwordController");
+const sanitizeRequest = require("../middlewares/sanitizeMiddleware");
+const sanitizeInput = require("../middlewares/xssSanitizer");
 
 router.post("/register", register);
 router.post("/login", login);
 router.post("/change-password", changePassword);
-router.post('/forgot-password', forgotPassword);
-router.get('/reset-password/:token', getUserByResetToken);
-router.post('/reset-password/:token', resetPassword);
+router.post("/forgot-password", forgotPassword);
+router.get("/reset-password/:token", getUserByResetToken);
+router.post("/reset-password/:token", resetPassword);
+
 router.get("/speakers", async (req, res) => {
   try {
     const speakers = await User.find({ role: "speaker" }).select("-password");
@@ -24,6 +32,23 @@ router.get("/speakers", async (req, res) => {
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+});
+
+// Middleware to validate registration and login requests
+router.post("/register", registerValidation, sanitizeRequest, sanitizeInput, (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  register(req, res, next);
+});
+
+router.post("/login", loginValidation, sanitizeRequest, sanitizeInput, (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+  login(req, res, next);
 });
 
 module.exports = router;
