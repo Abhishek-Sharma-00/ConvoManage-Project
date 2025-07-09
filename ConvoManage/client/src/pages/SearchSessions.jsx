@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import Loader from "../components/Loader";
+import { toast } from "react-toastify";
 
 const SearchSessions = () => {
   const [filters, setFilters] = useState({
@@ -19,6 +20,8 @@ const SearchSessions = () => {
   };
 
   const handleSearch = async () => {
+    setLoading(true);
+    setResults([]); // Clear previous results
     try {
       const params = new URLSearchParams();
       Object.entries(filters).forEach(([key, value]) => {
@@ -28,9 +31,11 @@ const SearchSessions = () => {
       const res = await axios.get(
         `http://localhost:5000/api/sessions/search?${params.toString()}`
       );
+      toast.success("Sessions fetched successfully");
       setResults(res.data);
     } catch (err) {
-      console.error("Search failed:", err.message);
+      toast.error("Failed to fetch sessions");
+      console.error(err.message);
     } finally {
       setLoading(false);
     }
@@ -46,22 +51,28 @@ const SearchSessions = () => {
           type="text"
           name="title"
           placeholder="Session Title"
+          value={filters.title}
           onChange={handleChange}
         />
         <input
           type="text"
           name="speaker"
           placeholder="Speaker Name"
+          value={filters.speaker}
           onChange={handleChange}
         />
+        <p>From</p>
         <input
           type="date"
           name="dateFrom"
+          placeholder="From Date"
           onChange={handleChange}
         />
+        <p>To</p>
         <input
           type="date"
           name="dateTo"
+          placeholder="To Date"
           onChange={handleChange}
         />
         <input

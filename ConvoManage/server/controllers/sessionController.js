@@ -136,13 +136,9 @@ const searchSessions = async (req, res) => {
     query.title = { $regex: title, $options: "i" }; // case-insensitive
   }
 
-  if (speaker) {
-    query.speakerName = { $regex: speaker, $options: "i" };
-  }
-
-  if (conferenceId) {
-    query.conference = conferenceId;
-  }
+  // if (speaker) {
+  //   query["speaker.Name"] = { $regex: speaker, $options: "i" };
+  // }
 
   if (dateFrom || dateTo) {
     query.startTime = {};
@@ -150,13 +146,24 @@ const searchSessions = async (req, res) => {
     if (dateTo) query.startTime.$lte = new Date(dateTo);
   }
 
+  if (conferenceId) {
+    query.conference = conferenceId;
+  }
+
   try {
-    const results = await Session.find(query)
+    let results = await Session.find(query)
       .populate("conference", "title")
       .populate("speaker", "name email");
+
+    if (speaker) {
+      results = results.filter((s) =>
+        s.speaker?.name?.toLowerCase().includes(speaker.toLowerCase())
+      );
+    }
     res.json(results);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error searching sessions:", err.message);
+    res.status(500).json({ error: "Server error while searching sessions" });
   }
 };
 

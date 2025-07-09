@@ -139,7 +139,7 @@ const OrganizerDashboard = () => {
    if (loading) return <Loader />;
 
   return (
-    <div className="container">
+    <div className="container-two">
       <h2>Welcome Organizer, {user.name}</h2>
       <h3>Create New Conference</h3>
       <form onSubmit={handleSubmit}>
@@ -185,12 +185,14 @@ const OrganizerDashboard = () => {
                 onChange={(e) => handleSessionChange(conf._id, e)}
                 required
               />
+              <p>From</p>
               <input
                 type="datetime-local"
                 name="startTime"
                 onChange={(e) => handleSessionChange(conf._id, e)}
                 required
               />
+              <p>To</p>
               <input
                 type="datetime-local"
                 name="endTime"
