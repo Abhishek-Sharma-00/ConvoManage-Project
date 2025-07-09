@@ -14,11 +14,16 @@ ConvoManage/
             ├── controllers/ # Route logic
             |     ├── authController.js 
             |     ├── conferenceController.js
+            |     ├── passwordController.js
             |     └── sessionController.js
             ├── middlewares/ # JWT auth & role-based access control
             |     ├── authMiddleware.js
-            |     └── roleMiddleware.js 
+            |     ├── roleMiddleware.js 
+            |     ├── sanitizeMiddleware.js 
+            |     ├── validators.js 
+            |     └── xssSanitizer.js 
             ├── models/ # Mongoose models
+            |     ├── ActivityLog.js
             |     ├── Conference.js
             |     ├── Session.js
             |     └── User.js
@@ -27,6 +32,7 @@ ConvoManage/
             |     ├── adminAnalytics.js
             |     ├── auth.js
             |     ├── conference.js
+            |     ├── profile.js
             |     ├── protected.js
             |     ├── session.js
             |     └── test.js

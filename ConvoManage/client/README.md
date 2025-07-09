@@ -52,20 +52,28 @@ ConvoManage/
             │    └── manifest.json
             ├── src/
             │    ├── components/ # Navbar, charts, etc.
+            |    |     ├── Loader.jsx
             |    |     ├── Navbar.jsx
             |    |     └── ProtectedRoute.jsx
             │    ├── context/ # Auth context
-            |    |     ├── AuthContext.jsx
+            |    |     └── AuthContext.jsx
             │    ├── pages/ # All route pages (login, dashboards, etc.)
             |    |     ├── AdminAnalytics.jsx
-            |    |     ├── AttendeeDashboard.jsx
             |    |     ├── AdminDashboard.jsx
+            |    |     ├── AdminLogs.jsx
+            |    |     ├── AttendeeDashboard.jsx
+            |    |     ├── ChangePassword.jsx
+            |    |     ├── ForgotPassword.jsx
             |    |     ├── home.css
             |    |     ├── Home.jsx
             |    |     ├── Login.jsx
             |    |     ├── MySession.jsx
             |    |     ├── OrganizerDashboard.jsx
+            |    |     ├── ProfilePage.jsx
             |    |     ├── Register.jsx
+            |    |     ├── ResetPassword.css
+            |    |     ├── ResetPassword.jsx
+            |    |     ├── SearchSessions.jsx
             |    |     ├── SpeakerDashboard.jsx
             │    ├── App.js
             │    ├── index.css
