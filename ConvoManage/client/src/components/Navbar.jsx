@@ -1,6 +1,6 @@
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { AiFillHome } from "react-icons/ai";
+// import { AiFillHome } from "react-icons/ai";
 import {
   FaUserTie,
   FaUserGraduate,
@@ -18,6 +18,7 @@ import { FiLogOut, FiLogIn } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa6"; // For Admin icon
 import { useState, useContext, useEffect, useRef } from "react";
 // import { Link } from "react-router-dom";
+const logoUrl = "https://raw.githubusercontent.com/Abhishek-Sharma-00/ConvoManage-Project/refs/heads/main/ConvoManage/client/assets/Untitled_design__1_-removebg-preview.png";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -50,8 +51,11 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="navbar-left" onClick={() => navigate("/")}>
-        <AiFillHome style={{ marginRight: "6px" }} />
-        <strong>ConvoManage</strong>
+        <div className="logo-container">
+      <img src={logoUrl} alt="ConvoManage Logo" className="logo"/>
+        {/* <AiFillHome style={{ marginRight: "6px" }} /> */}
+        </div>
+        {/* <strong>ConvoManage</strong> */}
       </div>
       <div className="navbar-right">
         {user ? (
