@@ -23,12 +23,18 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
-      await axios.post("http://localhost:5000/api/auth/register", form);
+      await axios.post("http://localhost:5000/api/auth/register", form, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       toast.success("Registration successful! Please login.");
       navigate("/");
     } catch (err) {
-      toast.error("Registration failed. " + err.response?.data?.error || err.message);
+      console.error("Registration error:", err.response?.data || err.message);
+      toast.error("Registration failed. " + err.response?.data?.message || err.message);
     } finally {
       setLoading(false);
     }

@@ -43,23 +43,46 @@ exports.getConferenceById = async (req, res) => {
   }
 };
 
-// Update
-exports.updateConference = async (req, res) => {
+
+// Delete Conference
+exports.deleteConference = async (req, res) => {
   try {
-    const updated = await Conference.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!updated) return res.status(404).json({ message: 'Conference not found' });
-    res.json(updated);
+    const { id } = req.params;
+
+    const conf = await Conference.findById(id);
+    if (!conf) return res.status(404).json({ message: "Conference not found" });
+
+    // Only organizer who created it can delete
+    if (conf.organizer.toString() !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ message: "Not authorized to delete this conference" });
+    }
+
+    await conf.deleteOne();
+    res.json({ message: "Conference deleted successfully" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-// Delete
-exports.deleteConference = async (req, res) => {
+// Update Conference
+exports.updateConference = async (req, res) => {
   try {
-    const deleted = await Conference.findByIdAndDelete(req.params.id);
-    if (!deleted) return res.status(404).json({ message: 'Conference not found' });
-    res.json({ message: 'Conference deleted' });
+    const { id } = req.params;
+    const { title, description, date } = req.body;
+
+    const conf = await Conference.findById(id);
+    if (!conf) return res.status(404).json({ message: "Conference not found" });
+
+    if (conf.organizer.toString() !== req.user.id && req.user.role !== "admin") {
+      return res.status(403).json({ message: "Not authorized to edit this conference" });
+    }
+
+    conf.title = title || conf.title;
+    conf.description = description || conf.description;
+    conf.date = date || conf.date;
+
+    await conf.save();
+    res.json({ message: "Conference updated successfully", conference: conf });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

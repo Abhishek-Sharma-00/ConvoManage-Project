@@ -9,7 +9,7 @@ import {
   FaUserPlus,
   FaUserCircle,
   FaChartBar,
-  FaSearch,
+  // FaSearch,
   // FaPlus,
   FaEdit,
   FaRedo,
@@ -18,7 +18,8 @@ import { FiLogOut, FiLogIn } from "react-icons/fi";
 import { FaUserShield } from "react-icons/fa6"; // For Admin icon
 import { useState, useContext, useEffect, useRef } from "react";
 // import { Link } from "react-router-dom";
-const logoUrl = "https://raw.githubusercontent.com/Abhishek-Sharma-00/ConvoManage-Project/refs/heads/main/ConvoManage/client/assets/Untitled_design__1_-removebg-preview.png";
+const logoUrl =
+  "https://raw.githubusercontent.com/Abhishek-Sharma-00/ConvoManage-Project/refs/heads/main/ConvoManage/client/assets/appLogo.png";
 
 const Navbar = () => {
   const { user, logout } = useContext(AuthContext);
@@ -36,26 +37,27 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-      setShowDropdown(false);
-    }
-  };
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
 
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <nav className="navbar">
       <div className="navbar-left" onClick={() => navigate("/")}>
         <div className="logo-container">
-      <img src={logoUrl} alt="ConvoManage Logo" className="logo"/>
-        {/* <AiFillHome style={{ marginRight: "6px" }} /> */}
+          <img src={logoUrl} alt="ConvoManage Logo" className="logo" />
+          {/* <AiFillHome style={{ marginRight: "6px" }} /> */}
         </div>
-        {/* <strong>ConvoManage</strong> */}
+        <strong style={{fontSize: "18px"}}>ConvoManage</strong>
+        <span style={{fontSize: "10px"}}>Online Conferences</span>
       </div>
       <div className="navbar-right">
         {user ? (
@@ -65,7 +67,6 @@ const Navbar = () => {
             </button>
             {showDropdown && (
               <div className="profile-dropdown">
-
                 {user.role === "organizer" && (
                   <button onClick={() => navigate("/organizer")}>
                     <FaUserTie /> Organizer
@@ -101,24 +102,22 @@ const Navbar = () => {
                     <FaClipboardList /> Activity Logs
                   </button>
                 )}
-                {user && (
+                {/* {user && (
                   <button onClick={() => navigate("/search-sessions")}>
-                    <FaSearch/> Search Sessions
+                    <FaSearch /> Search Sessions
                   </button>
-                )}
+                )} */}
                 {user && (
                   <button onClick={() => navigate("/profile")}>
-                    <FaEdit/> Edit Profile
+                    <FaEdit /> Edit Profile
                   </button>
                 )}
                 {user && (
                   <button onClick={() => navigate("/change-password")}>
-                    <FaRedo/> Change Password
+                    <FaRedo /> Change Password
                   </button>
                 )}
                 {/* {user && <Link to="/profile">Profile</Link>} */}
-
-                
 
                 <hr />
                 <button onClick={handleLogout}>

@@ -14,7 +14,7 @@ const {
 const { getMySessions } = require('../controllers/sessionController');
 const { getTopSpeakers } = require("../controllers/sessionController");
 const logActivity = require("../utils/logActivity");
-const { searchSessions } = require('../controllers/sessionController');
+// const { searchSessions } = require('../controllers/sessionController');
 
 router.get("/top-speakers", verifyToken, allowRoles("admin"), getTopSpeakers);
 
@@ -31,7 +31,7 @@ router.delete('/:id', verifyToken, allowRoles('organizer'), deleteSession);
 router.get('/:conferenceId', getSessionsByConference);
 router.get('/speaker/:speakerId', verifyToken, allowRoles('speaker'), getSessionsBySpeaker);
 
-router.get('/search', searchSessions); // e.g. /api/sessions/search?title=node&speaker=ram
+// router.get('/search', searchSessions); // e.g. /api/sessions/search?title=node&speaker=ram
 
 // Register for a session
 router.post('/:id/register', verifyToken, allowRoles('attendee'), registerForSession);

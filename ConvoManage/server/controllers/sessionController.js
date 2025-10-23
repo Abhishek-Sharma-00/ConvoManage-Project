@@ -1,5 +1,6 @@
 const Session = require("../models/Session");
 const logActivity = require("../utils/logActivity");
+const User = require("../models/User");
 
 // Create session
 const createSession = async (req, res) => {
@@ -126,47 +127,6 @@ const getTopSpeakers = async (req, res) => {
   }
 };
 
-// Filter & Search Sessions
-const searchSessions = async (req, res) => {
-  const { title, speaker, dateFrom, dateTo, conferenceId } = req.query;
-
-  const query = {};
-
-  if (title) {
-    query.title = { $regex: title, $options: "i" }; // case-insensitive
-  }
-
-  // if (speaker) {
-  //   query["speaker.Name"] = { $regex: speaker, $options: "i" };
-  // }
-
-  if (dateFrom || dateTo) {
-    query.startTime = {};
-    if (dateFrom) query.startTime.$gte = new Date(dateFrom);
-    if (dateTo) query.startTime.$lte = new Date(dateTo);
-  }
-
-  if (conferenceId) {
-    query.conference = conferenceId;
-  }
-
-  try {
-    let results = await Session.find(query)
-      .populate("conference", "title")
-      .populate("speaker", "name email");
-
-    if (speaker) {
-      results = results.filter((s) =>
-        s.speaker?.name?.toLowerCase().includes(speaker.toLowerCase())
-      );
-    }
-    res.json(results);
-  } catch (err) {
-    console.error("Error searching sessions:", err.message);
-    res.status(500).json({ error: "Server error while searching sessions" });
-  }
-};
-
 // Register for a session
 const registerForSession = async (req, res) => {
   try {
@@ -198,6 +158,6 @@ module.exports = {
   getSessionsBySpeaker,
   getMySessions,
   getTopSpeakers,
-  searchSessions,
   registerForSession,
 };
+

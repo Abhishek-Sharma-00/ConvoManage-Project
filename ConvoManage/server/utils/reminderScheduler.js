@@ -105,22 +105,3 @@ const scheduleReminders = () => {
 };
 
 module.exports = scheduleReminders;
-
-
-// const html = `
-//   <div style="font-family: Arial, sans-serif; padding: 20px; border: 1px solid #eee;">
-//     <div style="text-align: center;">
-//       <img src="${logoUrl}" alt="ConvoManage" style="max-width: 200px;" />
-//     </div>
-//     <h2 style="color: #333;">Hello ${session.speaker.name},</h2>
-//     <p>Don't forget your session <strong>"${session.title}"</strong> starts at <strong>${sessionTime}</strong>.</p>
-//     <p style="margin-top: 20px;">You’re receiving this reminder because you registered for this session on ConvoManage.</p>
-//     <hr style="margin: 20px 0;" />
-//     <p style="font-size: 12px; color: #888;">
-//       <a href="https://convomanage.com/unsubscribe" style="color: #888;">Unsubscribe</a> |
-//       <a href="https://convomanage.com/feedback" style="color: #888;">Give Feedback</a>
-//     </p>
-//   </div>
-// `;
-
-// await sendEmail(attendee.email, subject, html);

@@ -1,38 +1,18 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const cors = require("cors");
+const mongoose = require("mongoose");
 require("dotenv").config();
-
-const helmet = require("helmet");
-// const mongoSanitize = require("express-mongo-sanitize");
-// const xss = require("xss-clean");
-const rateLimit = require("express-rate-limit");
 
 const app = express();
 const scheduleReminders = require("./utils/reminderScheduler");
 
-// Middleware
-app.use(cors()); // Enable CORS for all routes
-app.use(express.json()); // Parse JSON bodies
-app.use(helmet()); // Security middleware to set various HTTP headers
-// app.use(
-//   mongoSanitize({
-//     replaceWith: "_",
-//     onSanitize: ({ req, key }) => {
-//       console.warn(`Sanitized: ${key}`);
-//       console.log("Sanitized request query:", req.query);
-//     },
-//   })
-// );
-// app.use(xss()); // Middleware to sanitize user input to prevent XSS attacks
+app.use(cors({
+  origin: "http://localhost:3000", // Allow your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  credentials: true // Allow cookies
+}));
 
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // Limit each IP to 100 requests per windowMs
-  message: "Too many requests, please try again later.",
-});
-app.use(limiter); // Apply rate limiting to all requests
-
+app.use(express.json());
 // Auth Routes
 const authRoutes = require("./routes/auth");
 app.use("/api/auth", authRoutes);

@@ -12,7 +12,7 @@ import MySessions from "./pages/MySessions";
 import AdminDashboard from "./pages/AdminDashboard";
 import AdminAnalytics from "./pages/AdminAnalytics";
 import AdminLogs from "./pages/AdminLogs";
-import SearchSessions from "./pages/SearchSessions";
+// import SearchSessions from "./pages/SearchSessions";
 import ProfilePage from "./pages/ProfilePage";
 import ChangePassword from "./pages/ChangePassword";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -78,7 +78,7 @@ function App() {
             }
           />
           <Route path="/admin/logs" element={<AdminLogs />} />
-          <Route path="/search-sessions" element={<SearchSessions />} />
+          {/* <Route path="/search-sessions" element={<SearchSessions />} /> */}
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/change-password" element={<ChangePassword />} />
 

@@ -1,7 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
-import { useCallback } from "react";
 import Loader from "../components/Loader";
 import { toast } from "react-toastify";
 
@@ -19,6 +18,17 @@ const OrganizerDashboard = () => {
   const [reminderUpdates, setReminderUpdates] = useState({});
   const [loading, setLoading] = useState(true);
 
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [selectedConferenceId, setSelectedConferenceId] = useState(null);
+  const [editConference, setEditConference] = useState({
+    _id: "",
+    title: "",
+    description: "",
+    date: "",
+  });
+
+  // Fetch all conferences
   const fetchConferences = useCallback(async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/conferences");
@@ -37,6 +47,7 @@ const OrganizerDashboard = () => {
     }
   }, [user.id]);
 
+  // Fetch sessions for a specific conference
   const fetchSessionsForConference = async (confId) => {
     try {
       const res = await axios.get(
@@ -51,10 +62,12 @@ const OrganizerDashboard = () => {
     }
   };
 
+  // Handle new conference input
   const handleChange = (e) => {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  // Create new conference
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -70,6 +83,7 @@ const OrganizerDashboard = () => {
     }
   };
 
+  // Handle session creation
   const handleSessionChange = (confId, e) => {
     setSessionForm((prev) => ({
       ...prev,
@@ -102,21 +116,62 @@ const OrganizerDashboard = () => {
     }
   };
 
-  useEffect(() => {
-    // Fetch all speakers
-    const fetchSpeakers = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/api/auth/speakers"); // You'll create this route
-        setSpeakers(res.data);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    fetchConferences();
-    fetchSpeakers();
-    setLoading(false);
-  }, [fetchConferences]);
+  //Edit Conference
+  const handleEditConference = async (conf) => {
+    setEditConference({
+      _id: conf._id,
+      title: conf.title,
+      description: conf.description,
+      date: conf.date?.slice(0, 10),
+    });
+    setShowEditModal(true);
+  };
 
+  const saveEditedConference = async () => {
+    try {
+      await axios.put(
+        `http://localhost:5000/api/conferences/${editConference._id}`,
+        {
+          title: editConference.title,
+          description: editConference.description,
+          date: editConference.date,
+        },
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
+      toast.success("Conference updated successfully");
+      setShowEditModal(false);
+      fetchConferences(); // Refresh list
+    } catch (err) {
+      toast.error("Failed to update conference");
+      console.error(err);
+    }
+  };
+
+  // Delete Conference
+  const handleDeleteConference = (confId) => {
+    setSelectedConferenceId(confId);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(
+        `http://localhost:5000/api/conferences/${selectedConferenceId}`,
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      );
+      toast.success("Conference deleted");
+      setShowDeleteModal(false);
+      fetchConferences();
+    } catch (err) {
+      toast.error("Failed to delete conference");
+    }
+  };
+
+  // Reminder function
   const handleReminderChange = (sessionId, value) => {
     setReminderUpdates((prev) => ({ ...prev, [sessionId]: Number(value) }));
   };
@@ -136,7 +191,22 @@ const OrganizerDashboard = () => {
     }
   };
 
-   if (loading) return <Loader />;
+  // Fetch all data on mount
+  useEffect(() => {
+    const fetchSpeakers = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/auth/speakers"); // You'll create this route
+        setSpeakers(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchConferences();
+    fetchSpeakers();
+    setLoading(false);
+  }, [fetchConferences]);
+
+  if (loading) return <Loader />;
 
   return (
     <div className="container-two">
@@ -175,6 +245,21 @@ const OrganizerDashboard = () => {
             <strong>{conf.title}</strong> —{" "}
             {new Date(conf.date).toLocaleDateString()}
             <p>{conf.description}</p>
+            {/* Edit/Delete Buttons */}
+            <div style={{ marginBottom: "10px" }}>
+              <button
+                onClick={() => handleEditConference(conf)}
+                style={{ marginRight: "10px" }}
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDeleteConference(conf._id)}
+                style={{ backgroundColor: "red", color: "white" }}
+              >
+                Delete
+              </button>
+            </div>
             {/* Add Session Form */}
             <form onSubmit={(e) => handleSessionSubmit(conf._id, e)}>
               <h4>Add Session</h4>
@@ -258,6 +343,76 @@ const OrganizerDashboard = () => {
           </li>
         ))}
       </ul>
+
+      {/* === Edit Modal === */}
+      {showEditModal && (
+        <div className="modal-overlay" onClick={() => setShowEditModal(false)}>
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            <h3>Edit Conference</h3>
+            <label>Title</label>
+            <input
+              type="text"
+              value={editConference.title}
+              onChange={(e) =>
+                setEditConference({ ...editConference, title: e.target.value })
+              }
+            />
+            <label>Description</label>
+            <textarea
+              value={editConference.description}
+              onChange={(e) =>
+                setEditConference({
+                  ...editConference,
+                  description: e.target.value,
+                })
+              }
+            ></textarea>
+            <label>Date</label>
+            <input
+              type="date"
+              value={editConference.date}
+              onChange={(e) =>
+                setEditConference({ ...editConference, date: e.target.value })
+              }
+            />
+            <div className="modal-buttons">
+              <button
+                className="cancel-btn"
+                onClick={() => setShowEditModal(false)}
+              >
+                Cancel
+              </button>
+              <button className="save-btn" onClick={saveEditedConference}>
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* === Delete Confirmation Modal === */}
+      {showDeleteModal && (
+        <div
+          className="modal-overlay"
+          onClick={() => setShowDeleteModal(false)}
+        >
+          <div className="modal-container" onClick={(e) => e.stopPropagation()}>
+            <h3>Delete Conference</h3>
+            <p>Are you sure you want to delete this conference?</p>
+            <div className="modal-buttons">
+              <button
+                className="cancel-btn"
+                onClick={() => setShowDeleteModal(false)}
+              >
+                Cancel
+              </button>
+              <button className="save-btn" onClick={confirmDelete}>
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
