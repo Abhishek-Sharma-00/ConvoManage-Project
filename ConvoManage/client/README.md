@@ -73,7 +73,6 @@ ConvoManage/
             |    |     ├── Register.jsx
             |    |     ├── ResetPassword.css
             |    |     ├── ResetPassword.jsx
-            |    |     ├── SearchSessions.jsx
             |    |     ├── SpeakerDashboard.jsx
             │    ├── App.js
             │    ├── index.css

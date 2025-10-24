@@ -18,10 +18,7 @@ ConvoManage/
             |     └── sessionController.js
             ├── middlewares/ # JWT auth & role-based access control
             |     ├── authMiddleware.js
-            |     ├── roleMiddleware.js 
-            |     ├── sanitizeMiddleware.js 
-            |     ├── validators.js 
-            |     └── xssSanitizer.js 
+            |     └── roleMiddleware.js   
             ├── models/ # Mongoose models
             |     ├── ActivityLog.js
             |     ├── Conference.js
