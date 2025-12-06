@@ -78,7 +78,6 @@ function App() {
             }
           />
           <Route path="/admin/logs" element={<AdminLogs />} />
-          {/* <Route path="/search-sessions" element={<SearchSessions />} /> */}
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/change-password" element={<ChangePassword />} />
 
