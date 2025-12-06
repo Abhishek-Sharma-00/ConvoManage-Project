@@ -18,7 +18,7 @@ const ResetPassword = () => {
     e.preventDefault();
     try {
       await axios.put(
-        "http://localhost:5000/api/profile/change-password",
+        "https://convo-manage-project.vercel.app/api/profile/change-password",
         {
           currentPassword,
           newPassword,

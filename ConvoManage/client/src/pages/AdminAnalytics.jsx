@@ -27,11 +27,11 @@ const AdminAnalytics = () => {
     const fetchAnalytics = async () => {
       try {
         const [rolesRes, sessionsRes] = await Promise.all([
-          axios.get("http://localhost:5000/api/admin/analytics/user-roles", {
+          axios.get("https://convo-manage-project.vercel.app/api/admin/analytics/user-roles", {
             headers: { Authorization: `Bearer ${user.token}` },
           }),
           axios.get(
-            "http://localhost:5000/api/admin/analytics/sessions-per-conference",
+            "https://convo-manage-project.vercel.app/api/admin/analytics/sessions-per-conference",
             {
               headers: { Authorization: `Bearer ${user.token}` },
             }
@@ -66,7 +66,7 @@ const AdminAnalytics = () => {
     const fetchUserCounts = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/admin/analytics/users",
+          "https://convo-manage-project.vercel.app/api/admin/analytics/users",
           {
             headers: { Authorization: `Bearer ${user.token}` },
           }
@@ -84,7 +84,7 @@ const AdminAnalytics = () => {
     const fetchTopSpeakers = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/sessions/top-speakers",
+          "https://convo-manage-project.vercel.app/api/sessions/top-speakers",
           {
             headers: { Authorization: `Bearer ${user.token}` },
           }

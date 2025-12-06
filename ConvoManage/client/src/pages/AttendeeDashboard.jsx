@@ -14,13 +14,13 @@ const AttendeeDashboard = () => {
     try {
       // 1) fetch all conferences
       const { data: confs } = await axios.get(
-        "http://localhost:5000/api/conferences"
+        "https://convo-manage-project.vercel.app/api/conferences"
       );
       // 2) for each, fetch its sessions
       const fullData = await Promise.all(
         confs.map(async (conf) => {
           const { data: sessions } = await axios.get(
-            `http://localhost:5000/api/sessions/${conf._id}`
+            `https://convo-manage-project.vercel.app/api/sessions/${conf._id}`
           );
           return { conf, sessions };
         })
@@ -41,7 +41,7 @@ const AttendeeDashboard = () => {
   const handleRegister = async (sessionId) => {
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/sessions/${sessionId}/register`,
+        `https://convo-manage-project.vercel.app/api/sessions/${sessionId}/register`,
         {},
         {
           headers: {
@@ -61,7 +61,7 @@ const AttendeeDashboard = () => {
   const handleJoinSession = async (sessionId) => {
     try {
       await axios.post(
-        `http://localhost:5000/api/sessions/${sessionId}/register`,
+        `https://convo-manage-project.vercel.app/api/sessions/${sessionId}/register`,
         {},
         {
           headers: {

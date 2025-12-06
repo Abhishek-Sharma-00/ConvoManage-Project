@@ -12,7 +12,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/profile", {
+        const res = await axios.get("https://convo-manage-project.vercel.app/api/profile", {
           headers: { Authorization: `Bearer ${user.token}` },
         });
         setForm({ name: res.data.name, email: res.data.email });
@@ -33,7 +33,7 @@ const ProfilePage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.put("http://localhost:5000/api/profile", form, {
+      const res = await axios.put("https://convo-manage-project.vercel.app/api/profile", form, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       const updatedUser = { ...user, name: res.data.user.name };

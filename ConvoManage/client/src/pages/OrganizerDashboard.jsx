@@ -31,7 +31,7 @@ const OrganizerDashboard = () => {
   // Fetch all conferences
   const fetchConferences = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/conferences");
+      const res = await axios.get("https://convo-manage-project.vercel.app/api/conferences");
       const myConfs = res.data.filter((conf) => {
         const organizerId =
           typeof conf.organizer === "string"
@@ -51,7 +51,7 @@ const OrganizerDashboard = () => {
   const fetchSessionsForConference = async (confId) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/sessions/${confId}`
+        `https://convo-manage-project.vercel.app/api/sessions/${confId}`
       );
       setConferenceSessions((prev) => ({
         ...prev,
@@ -71,7 +71,7 @@ const OrganizerDashboard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/conferences", form, {
+      await axios.post("https://convo-manage-project.vercel.app/api/conferences", form, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -102,7 +102,7 @@ const OrganizerDashboard = () => {
     };
 
     try {
-      await axios.post("http://localhost:5000/api/sessions", sessionData, {
+      await axios.post("https://convo-manage-project.vercel.app/api/sessions", sessionData, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -130,7 +130,7 @@ const OrganizerDashboard = () => {
   const saveEditedConference = async () => {
     try {
       await axios.put(
-        `http://localhost:5000/api/conferences/${editConference._id}`,
+        `https://convo-manage-project.vercel.app/api/conferences/${editConference._id}`,
         {
           title: editConference.title,
           description: editConference.description,
@@ -158,7 +158,7 @@ const OrganizerDashboard = () => {
   const confirmDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:5000/api/conferences/${selectedConferenceId}`,
+        `https://convo-manage-project.vercel.app/api/conferences/${selectedConferenceId}`,
         {
           headers: { Authorization: `Bearer ${user.token}` },
         }
@@ -180,7 +180,7 @@ const OrganizerDashboard = () => {
     const minutes = reminderUpdates[sessionId];
     try {
       await axios.put(
-        `http://localhost:5000/api/sessions/${sessionId}`,
+        `https://convo-manage-project.vercel.app/api/sessions/${sessionId}`,
         { reminderMinutesBefore: minutes },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
@@ -195,7 +195,7 @@ const OrganizerDashboard = () => {
   useEffect(() => {
     const fetchSpeakers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/auth/speakers"); // You'll create this route
+        const res = await axios.get("https://convo-manage-project.vercel.app/api/auth/speakers"); // You'll create this route
         setSpeakers(res.data);
       } catch (err) {
         console.error(err);

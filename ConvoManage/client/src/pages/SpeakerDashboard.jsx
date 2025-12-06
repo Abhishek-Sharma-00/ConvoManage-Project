@@ -12,7 +12,7 @@ const SpeakerDashboard = () => {
     const fetchSessions = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/sessions/speaker/${user.id}`,
+          `https://convo-manage-project.vercel.app/api/sessions/speaker/${user.id}`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,

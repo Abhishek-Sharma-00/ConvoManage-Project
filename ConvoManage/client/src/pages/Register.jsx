@@ -25,7 +25,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/api/auth/register", form, {
+      await axios.post("https://convo-manage-project.vercel.app/api/auth/register", form, {
         headers: {
           "Content-Type": "application/json",
         },

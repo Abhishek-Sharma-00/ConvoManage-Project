@@ -10,7 +10,7 @@ const AdminLogs = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/admin/logs", {
+        const res = await axios.get("https://convo-manage-project.vercel.app/api/admin/logs", {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },

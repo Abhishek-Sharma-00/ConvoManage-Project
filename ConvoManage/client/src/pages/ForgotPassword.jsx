@@ -11,7 +11,7 @@ const ForgotPassword = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/auth/forgot-password", {
+      await axios.post("https://convo-manage-project.vercel.app/api/auth/forgot-password", {
         email,
       });
       toast.success("Password reset link sent to your email.");

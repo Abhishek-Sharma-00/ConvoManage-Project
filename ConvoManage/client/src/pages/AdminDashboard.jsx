@@ -12,7 +12,7 @@ const AdminDashboard = () => {
 
   const fetchUsers = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/admin/users", {
+      const res = await axios.get("https://convo-manage-project.vercel.app/api/admin/users", {
         headers: { Authorization: `Bearer ${user.token}` },
       });
       setUsers(res.data);
@@ -27,7 +27,7 @@ const AdminDashboard = () => {
     try {
       const res = await 
       axios.patch(
-        `http://localhost:5000/api/admin/users/${id}/role`,
+        `https://convo-manage-project.vercel.app/api/admin/users/${id}/role`,
         { role: newRole },
         { headers: { Authorization: `Bearer ${user.token}` } }
       );
@@ -50,7 +50,7 @@ const AdminDashboard = () => {
 
     try {
       const token = user.token; // Get the token from the user context
-      await axios.delete(`http://localhost:5000/api/users/${id}`, {
+      await axios.delete(`https://convo-manage-project.vercel.app/api/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

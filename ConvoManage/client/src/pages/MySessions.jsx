@@ -11,7 +11,7 @@ const MySessions = () => {
   useEffect(() => {
     const fetchMySessions = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/sessions/my-registrations", {
+        const res = await axios.get("https://convo-manage-project.vercel.app/api/sessions/my-registrations", {
           headers: {
             Authorization: `Bearer ${user.token}`,
           },
